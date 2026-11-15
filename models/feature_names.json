@@ -1,0 +1,9 @@
+[
+  "day",
+  "month",
+  "day_of_week",
+  "is_weekend",
+  "previous_day_sales",
+  "previous_3day_avg",
+  "previous_7day_avg"
+]

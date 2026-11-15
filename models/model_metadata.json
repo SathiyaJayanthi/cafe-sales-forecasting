@@ -1,0 +1,55 @@
+{
+  "model_name": "Linear Regression",
+  "saved_as": "random_forest_model.pkl",
+  "trained_at": "2026-11-14T09:59:57.369140Z",
+  "metrics": {
+    "MAE": 135.59098010264987,
+    "MSE": 27173.70898136583,
+    "RMSE": 164.84449939675218,
+    "R2": 0.08927613870377327,
+    "MAPE": 22.25052382285583
+  },
+  "feature_names": [
+    "day",
+    "month",
+    "day_of_week",
+    "is_weekend",
+    "previous_day_sales",
+    "previous_3day_avg",
+    "previous_7day_avg"
+  ],
+  "train_rows": 286,
+  "test_rows": 72,
+  "total_rows_after_feature_engineering": 358,
+  "all_model_metrics": {
+    "Random Forest": {
+      "MAE": 140.1862857114982,
+      "MSE": 30211.168004000134,
+      "RMSE": 173.81360132049545,
+      "R2": -0.012523965636769052,
+      "MAPE": 22.466098974904515
+    },
+    "Decision Tree": {
+      "MAE": 179.64120370370372,
+      "MSE": 47098.785113811726,
+      "RMSE": 217.022545174025,
+      "R2": -0.5785105916393707,
+      "MAPE": 29.553252832588022
+    },
+    "Linear Regression": {
+      "MAE": 135.59098010264987,
+      "MSE": 27173.70898136583,
+      "RMSE": 164.84449939675218,
+      "R2": 0.08927613870377327,
+      "MAPE": 22.25052382285583
+    },
+    "Gradient Boosting": {
+      "MAE": 146.1845570039159,
+      "MSE": 33302.95490400139,
+      "RMSE": 182.49097211643482,
+      "R2": -0.11614486279899006,
+      "MAPE": 23.558842411327202
+    }
+  },
+  "baseline_rmse": 182.95510226403758
+}
