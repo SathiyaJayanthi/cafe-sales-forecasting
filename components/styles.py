@@ -58,25 +58,27 @@ def get_custom_css() -> str:
     --font-serif: "Playfair Display", Georgia, serif;
 }
 
-/* ===== APP BACKGROUND (RICH CAFE ITEM IMAGERY & AMBIENT COFFEE LIGHTING) ===== */
-html, body, [data-testid="stAppViewContainer"] {
-    background: 
-        linear-gradient(180deg, rgba(10, 5, 3, 0.86) 0%, rgba(18, 9, 6, 0.88) 40%, rgba(8, 4, 2, 0.94) 100%),
-        radial-gradient(circle at 12% 15%, rgba(184, 112, 62, 0.22) 0%, transparent 45%),
-        radial-gradient(circle at 88% 20%, rgba(212, 169, 106, 0.18) 0%, transparent 45%),
-        radial-gradient(ellipse at 50% 0%, #201008 0%, #110804 50%, #080402 100%),
-        __BG_IMAGE_URL__ center center / cover no-repeat fixed !important;
+/* ===== APP BACKGROUND (DARK LUXURY & MINIMAL COFFEE AMBIENT WALLPAPER) ===== */
+.stApp, [data-testid="stAppViewContainer"] {
+    background-image: 
+        linear-gradient(180deg, rgba(14, 7, 4, 0.58) 0%, rgba(18, 9, 5, 0.68) 45%, rgba(10, 5, 3, 0.80) 100%),
+        radial-gradient(circle at 15% 20%, rgba(220, 140, 70, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 85% 25%, rgba(220, 160, 90, 0.12) 0%, transparent 50%),
+        __BG_IMAGE_URL__ !important;
+    background-position: center center !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
     background-attachment: fixed !important;
     color: var(--cream) !important;
     font-family: var(--font-sans) !important;
     -webkit-font-smoothing: antialiased;
 }
 
-[data-testid="stApp"] {
+[data-testid="stHeader"] {
     background: transparent !important;
 }
 
-[data-testid="stMain"] {
+[data-testid="stApp"], [data-testid="stMain"], .main, section.main {
     background: transparent !important;
 }
 
