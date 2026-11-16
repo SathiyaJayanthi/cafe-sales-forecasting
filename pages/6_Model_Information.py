@@ -28,6 +28,7 @@ from config.settings import (
     MODEL_PATH,
     METADATA_PATH,
     FEATURE_NAMES_PATH,
+    MODELS_DIR,
     RF_PARAMS,
 )
 from src.data_processing import (
@@ -312,20 +313,34 @@ def main():
 
                     trained_models = train_all_models(X_train, y_train)
                     eval_results = evaluate_all_models(trained_models, X_test, y_test)
-                    baseline_preds = naive_baseline_predict(X_test)
+                    
+                    baseline_preds = naive_baseline_predict(y_train, len(y_test))
                     from src.model_evaluation import calculate_metrics
-                    baseline_metrics = calculate_metrics(y_test.values, baseline_preds)
+                    baseline_metrics = calculate_metrics(y_test, baseline_preds, model_name="Naive Baseline")
+                    baseline_rmse = baseline_metrics["RMSE"]
 
-                    best_name, best_model, best_metrics = select_best_model(trained_models, eval_results)
-                    saved_paths = save_model_artifacts(
+                    best_name = select_best_model(eval_results)
+                    best_model = trained_models[best_name]
+                    best_metrics = eval_results[best_name]
+
+                    training_metadata = {
+                        "train_rows": len(X_train),
+                        "test_rows": len(X_test),
+                        "total_rows_after_feature_engineering": len(featured_df),
+                        "all_model_metrics": {
+                            name: {k: v for k, v in m.items() if k != "model_name"}
+                            for name, m in eval_results.items()
+                        },
+                        "baseline_rmse": baseline_rmse,
+                    }
+
+                    save_model_artifacts(
                         model=best_model,
                         model_name=best_name,
                         feature_names=list(X_train.columns),
-                        metrics=best_metrics,
-                        all_model_metrics=eval_results,
-                        baseline_rmse=baseline_metrics["RMSE"],
-                        train_rows=len(X_train),
-                        test_rows=len(X_test),
+                        metrics={k: v for k, v in best_metrics.items() if k != "model_name"},
+                        training_metadata=training_metadata,
+                        models_dir=MODELS_DIR,
                     )
 
                     st.success(f"✅ Retraining completed successfully! Best model: **{best_name}** (RMSE: ₹{best_metrics['RMSE']:.2f})")

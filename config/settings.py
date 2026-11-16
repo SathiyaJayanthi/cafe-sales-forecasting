@@ -46,8 +46,8 @@ FEATURE_NAMES_PATH = MODELS_DIR / "feature_names.json"
 # ---------------------------------------------------------------------------
 RF_PARAMS = {
     "n_estimators": 300,
-    "max_depth": 8,
-    "min_samples_leaf": 2,
+    "max_depth": 4,
+    "min_samples_leaf": 4,
     "random_state": 42,
 }
 

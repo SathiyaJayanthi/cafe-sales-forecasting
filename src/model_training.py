@@ -43,16 +43,19 @@ def get_model_configs() -> dict:
             n_estimators=RF_PARAMS["n_estimators"],
             max_depth=RF_PARAMS["max_depth"],
             min_samples_leaf=RF_PARAMS["min_samples_leaf"],
+            max_features=0.8,
             random_state=RF_PARAMS["random_state"],
         ),
         "Decision Tree": DecisionTreeRegressor(
-            max_depth=8,
+            max_depth=3,
+            min_samples_leaf=8,
             random_state=42,
         ),
         "Linear Regression": LinearRegression(),
         "Gradient Boosting": GradientBoostingRegressor(
-            n_estimators=200,
-            max_depth=5,
+            n_estimators=80,
+            learning_rate=0.04,
+            max_depth=2,
             random_state=42,
         ),
     }
@@ -84,20 +87,27 @@ def train_all_models(X_train: pd.DataFrame, y_train: pd.Series) -> dict:
 # Naive baseline
 # ---------------------------------------------------------------------------
 
-def naive_baseline_predict(y_train: pd.Series, n_test: int) -> np.ndarray:
+def naive_baseline_predict(y_train: pd.Series | np.ndarray, n_test: int | None = None) -> np.ndarray:
     """
     Naive baseline: repeat the last training value for all test predictions.
 
     Parameters
     ----------
-    y_train : pd.Series   — training target values
-    n_test  : int         — number of predictions to generate
+    y_train : pd.Series or np.ndarray — training target values
+    n_test  : int, optional           — number of predictions to generate (defaults to len(y_train))
 
     Returns
     -------
     np.ndarray of shape (n_test,)
     """
-    last_value = float(y_train.iloc[-1])
+    if n_test is None:
+        n_test = len(y_train)
+    if hasattr(y_train, "iloc"):
+        last_value = float(y_train.iloc[-1])
+    elif hasattr(y_train, "__getitem__"):
+        last_value = float(y_train[-1])
+    else:
+        last_value = float(y_train)
     return np.full(n_test, last_value)
 
 
